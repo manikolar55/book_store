@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  web:
+    image: your-django-image  # Replace with your Django image name
+    container_name: bookstore_web
+    command: gunicorn bookstore_project.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./bookstore_project:/app  # Adjust the path based on your project structure
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=bookstore_project.settings
+    networks:
+      - my_network
+
+  db:
+    image: postgres
+    container_name: bookstore_db
+    environment:
+      - POSTGRES_DB=bookstoredb
+      - POSTGRES_USER=bookstoreuser
+      - POSTGRES_PASSWORD=bookstorepassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+
+volumes:
+  postgres_data:
+
+networks:
+  my_network:
