@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   web:
-    image: your-django-image  # Replace with your Django image name
+    image: your-django-image
     container_name: bookstore_web
     command: gunicorn bookstore_project.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./bookstore_project:/app  # Adjust the path based on your project structure
+      - ./bookstore_project:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -27,6 +27,27 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - my_network
+
+  celery:
+    image: your-django-image
+    container_name: bookstore_celery
+    command: celery -A bookstore_project worker --loglevel=info
+    volumes:
+      - ./bookstore_project:/app
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=bookstore_project.settings
+    networks:
+      - my_network
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+      - "6379:6379"
     networks:
       - my_network
 
