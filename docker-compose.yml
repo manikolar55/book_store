@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: your-django-image
+    image: manikolar5566/book-store-image:latest
     container_name: bookstore_web
     command: gunicorn bookstore_project.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -31,7 +31,7 @@ services:
       - my_network
 
   celery:
-    image: your-django-image
+    image: celery
     container_name: bookstore_celery
     command: celery -A bookstore_project worker --loglevel=info
     volumes:
@@ -50,6 +50,7 @@ services:
       - "6379:6379"
     networks:
       - my_network
+
 
 volumes:
   postgres_data:

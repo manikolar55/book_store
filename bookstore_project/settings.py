@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-from celery import Celery
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,6 +76,8 @@ WSGI_APPLICATION = "bookstore_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# settings.py
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -85,9 +85,10 @@ DATABASES = {
         'USER': 'bookstoreuser',       # Match with the POSTGRES_USER in docker-compose.yml
         'PASSWORD': 'bookstorepassword',  # Match with the POSTGRES_PASSWORD in docker-compose.yml
         'HOST': 'localhost',           # Use the name of the service (container) in Docker Compose
-        'PORT': '5432',
+        'PORT': '5433',                # Use the local port you mapped in Docker run command
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -149,12 +150,12 @@ REST_FRAMEWORK = {
 
 
 
-
-app = Celery('bookstore_project')
-app.config_from_object('django.conf:settings', namespace='CELERY')
-
-# Load task modules from all registered Django app configs.
-app.autodiscover_tasks()
+#
+# app = Celery('bookstore_project')
+# app.config_from_object('django.conf:settings', namespace='CELERY')
+#
+# # Load task modules from all registered Django app configs.
+# app.autodiscover_tasks()
 
 # settings.py
 

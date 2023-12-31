@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 def send_purchase_notification(email, purchase_details):
     subject = 'Purchase Notification'
     message = f'Thank you for your purchase!\n\nDetails: {purchase_details}'
-    from_email = 'your@email.com'
+    from_email = 'mani.kolar5566@gmail.com'
     recipient_list = [email]
 
     send_mail(subject, message, from_email, recipient_list)
