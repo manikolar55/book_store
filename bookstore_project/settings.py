@@ -86,7 +86,7 @@ DATABASES = {
         'USER': 'bookstoreuser',       # Match with the POSTGRES_USER in docker-compose.yml
         'PASSWORD': 'bookstorepassword',  # Match with the POSTGRES_PASSWORD in docker-compose.yml
         'HOST': 'localhost',           # Use the name of the service (container) in Docker Compose
-        'PORT': '5433',                # Use the local port you mapped in Docker run command
+        'PORT': '5432',                # Use the local port you mapped in Docker run command
     }
 }
 
