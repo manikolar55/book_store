@@ -1,4 +1,4 @@
-Create the Virtual Environment on Python 3.8 version
+Create the Virtual Environment on Python 3.10 version
 
 #install all the requirements
 
