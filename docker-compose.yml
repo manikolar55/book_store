@@ -1,8 +1,8 @@
-version: '3.8'
+version: '3.10'
 
 services:
   web:
-    image: manikolar5566/book-store-image:latest
+    image: manikolar5566/book-store-new:latest
     container_name: bookstore_web
     command: gunicorn bookstore_project.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -30,10 +30,11 @@ services:
     networks:
       - my_network
 
+
   celery:
     image: celery
     container_name: bookstore_celery
-    command: celery -A bookstore_project worker --loglevel=info
+    command: celery -A bookstore_project worker -l info
     volumes:
       - ./bookstore_project:/app
     depends_on:
@@ -42,6 +43,7 @@ services:
       - DJANGO_SETTINGS_MODULE=bookstore_project.settings
     networks:
       - my_network
+
 
   redis:
     image: "redis:alpine"
