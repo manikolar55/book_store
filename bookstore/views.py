@@ -10,12 +10,39 @@ from .serializers import AuthorSerializer, CategorySerializer, BookSerializer, S
 
 
 class AuthorList(generics.ListCreateAPIView):
+    """
+        API endpoint for listing and creating authors.
+
+        Permissions:
+        - Only authenticated users are allowed.
+
+        HTTP Methods:
+        - GET: Retrieve a list of authors.
+        - POST: Create a new author.
+
+        Serializer:
+        - AuthorSerializer: Serializes Author model data.
+        """
     permission_classes = [permissions.IsAuthenticated]
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
 
 
 class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+        API endpoint for retrieving, updating, and deleting an author.
+
+        Permissions:
+        - Only authenticated users are allowed.
+
+        HTTP Methods:
+        - PUT: Update details of a specific author.
+        - PATCH: Partially update details of a specific author.
+        - DELETE: Delete a specific author.
+
+        Serializer:
+        - AuthorSerializer: Serializes Author model data.
+        """
     permission_classes = [permissions.IsAuthenticated]
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
@@ -46,18 +73,60 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ShoppingCartListCreateView(generics.ListCreateAPIView):
+    """
+       API endpoint for listing and creating shopping carts.
+
+       Permissions:
+       - Only authenticated users are allowed.
+
+       HTTP Methods:
+       - GET: Retrieve a list of shopping carts.
+       - POST: Create a new shopping cart.
+
+       Serializer:
+       - ShoppingCartSerializer: Serializes ShoppingCart model data.
+       """
     queryset = ShoppingCart.objects.all()
     serializer_class = ShoppingCartSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 class ShoppingCartRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """
+       API endpoint for retrieving, updating, and deleting a shopping cart.
+
+       Permissions:
+       - Only authenticated users are allowed.
+
+       HTTP Methods:
+       - GET: Retrieve details of a specific shopping cart.
+       - PUT: Update details of a specific shopping cart.
+       - PATCH: Partially update details of a specific shopping cart.
+       - DELETE: Delete a specific shopping cart.
+
+       Serializer:
+       - ShoppingCartSerializer: Serializes ShoppingCart model data.
+       """
     queryset = ShoppingCart.objects.all()
     serializer_class = ShoppingCartSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 class PurchaseView(APIView):
+    """
+        API endpoint for making a purchase.
+
+        Permissions:
+        - Only authenticated users are allowed.
+
+        HTTP Method:
+        - GET: Perform a purchase, send a notification, and empty the shopping cart.
+
+        Returns:
+        - 200 OK: If the purchase is successful or there are no books in the cart.
+        - Response({'message': 'Purchase successful'}): If the purchase is successful.
+        - Response({'message': 'No Book'}): If there are no books in the cart.
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):

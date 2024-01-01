@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework.authtoken',
     'rest_framework',
-    'bookstore'
+    'bookstore',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -161,3 +162,4 @@ REST_FRAMEWORK = {
 
 # AUTH_USER_MODEL = 'bookstore.CustomUser'
 
+# DJANGO_SETTINGS_MODULE = 'bookstore_project.settings'
